@@ -12,7 +12,8 @@ class Api::V1::PostsController < ApplicationController
         replies: thread.responses.map do |reply|
           {
             post: reply,
-            author: reply.user
+            author: reply.user,
+            gravatar_url: thread.user.gravatar_url,
           }
         end
       }

@@ -68,7 +68,7 @@ class Discussions extends React.Component {
             <>
               <List
                 className="comment-list"
-                header={`${this.state.discussions.length} replies`}
+                header={`${this.state.discussions.length} discussions`}
                 itemLayout="horizontal"
                 dataSource={this.state.discussions}
                 renderItem={item => (
@@ -78,8 +78,23 @@ class Discussions extends React.Component {
                         author={item.author}
                         avatar={item.avatar}
                         content={item.content}
-                        datetime={item.datetime}
-                      />
+                        datetime={item.datetime} >
+
+                        <List
+                          dataSource={item.replies}
+                          renderItem={reply => (
+                              <li>
+                              <Comment
+                                actions={item.actions}
+                                author={reply.author.email}
+                                avatar={reply.gravatar_url}
+                                content={reply.post.content}
+                                datetime={reply.post.updated_at}
+                              />
+                              </li>
+                          )}
+                        />
+                      </Comment>
                     </li>
                 )}
               />
