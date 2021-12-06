@@ -1,8 +1,5 @@
 class Api::V1::PostsController < ApplicationController
   before_action :load_post, only: [:show, :update, :destroy]
-  before_action :load_user, only: [:create, :update, :destroy]
-
-  attr_accessor :current_api_user
 
   def index
     threads = Post.threads.includes([:responses, :user])
@@ -23,7 +20,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params.merge({ user_id: current_api_user.id }))
+    @post = Post.new(post_params.merge({ user_id: current_user.id }))
 
     if @post.save
       render json: @post
@@ -33,7 +30,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def update
-    if @post.user == current_api_user
+    if @post.user == current_user
       @post.update(post_update_params)
       render json: @post
     else
@@ -42,7 +39,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def destroy
-    if @post.user == current_api_user
+    if @post.user == current_user
       @post.archive!
 
       render json: { notice: 'Post archived.'}
@@ -55,15 +52,6 @@ class Api::V1::PostsController < ApplicationController
 
   def load_post
     @post = Post.find(params[:id])
-  end
-
-  def load_user
-    return nil
-    @current_api_user ||= User.find_by(api_key: api_key)
-  end
-
-  def api_key
-    nil
   end
 
   def post_params

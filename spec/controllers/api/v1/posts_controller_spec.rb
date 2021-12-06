@@ -26,7 +26,7 @@ RSpec.describe Api::V1::PostsController do
     let(:params) { { content: 'sassy talk', parent_id: nil } }
 
     before do
-      allow(controller).to receive_messages current_api_user: author
+      allow(controller).to receive_messages current_user: author
     end
 
     it "makes a new post by default" do
@@ -45,7 +45,7 @@ RSpec.describe Api::V1::PostsController do
 
   describe "DELETE #destroy" do
     before do
-      allow(controller).to receive_messages current_api_user: author
+      allow(controller).to receive_messages current_user: author
     end
 
     it "archives a post if you own it" do
@@ -62,7 +62,7 @@ RSpec.describe Api::V1::PostsController do
     let(:posty_mcpostface) { author }
 
     before do
-      allow(controller).to receive_messages current_api_user: posty_mcpostface
+      allow(controller).to receive_messages current_user: posty_mcpostface
       patch :update, params: params
     end
 
