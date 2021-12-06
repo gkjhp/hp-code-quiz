@@ -56,4 +56,26 @@ RSpec.describe Api::V1::PostsController do
       expect { delete :destroy, params: { id: post1.id } }.not_to change { post1.reload.archived_at }
     end
   end
+
+  describe "PATCH #update" do
+    let(:params) { { id: post2.id, content: "Whoops wrong channel", parent_id: post2.parent_id } }
+    let(:posty_mcpostface) { author }
+
+    before do
+      allow(controller).to receive_messages current_api_user: posty_mcpostface
+      patch :update, params: params
+    end
+
+    it "updates the post if you own it" do
+      expect(post2.reload.content).to eq params[:content]
+    end
+
+    context "as somebody else" do
+      let(:posty_mcpostface) { respondent }
+
+      it "does not update the post" do
+        expect(post2.reload.content).not_to eq params[:content]
+      end
+    end
+  end
 end

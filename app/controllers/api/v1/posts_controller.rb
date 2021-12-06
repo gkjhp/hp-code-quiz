@@ -32,6 +32,15 @@ class Api::V1::PostsController < ApplicationController
     end
   end
 
+  def update
+    if @post.user == current_api_user
+      @post.update(post_update_params)
+      render json: @post
+    else
+      render json: { error: 'Not your post' }, status: :unauthorized
+    end
+  end
+
   def destroy
     if @post.user == current_api_user
       @post.archive!
@@ -59,5 +68,9 @@ class Api::V1::PostsController < ApplicationController
 
   def post_params
     params.permit(:content, :parent_id)
+  end
+
+  def post_update_params
+    params.permit(:content)
   end
 end
