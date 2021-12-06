@@ -26,16 +26,16 @@ class Discussions extends React.Component {
                     const newEl = {
                         key: post.post.id,
                         id: post.post.id,
-                        author: post.post.author.email,
+                        author: post.author.email,
                         avatar: post.gravatar_url,
-                        content: post.content,
-                        datetime: post.updated_at,
+                        content: post.post.content,
+                        datetime: post.post.updated_at,
                         replies: post.replies,
                         actions: [<span>reply</span>]
                     };
 
                     this.setState((prevState) => ({
-                        discussions: [...prevState.discssions, newEl],
+                        discussions: [...prevState.discussions, newEl],
                     }));
                 });
             })
