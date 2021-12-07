@@ -1,6 +1,7 @@
 import { List, Comment, message } from "antd";
 import React from "react";
 import AddDiscussionModal from "./AddDiscussionModal";
+import EditDiscussionModal from "./EditDiscussionModal";
 
 class Discussions extends React.Component {
 
@@ -31,7 +32,8 @@ class Discussions extends React.Component {
                         content: post.post.content,
                         datetime: post.post.updated_at,
                         replies: post.replies,
-                        actions: [<span onClick={() => this.deleteDiscussion(post.post.id)}>delete</span>]
+                        actions: [<span onClick={() => this.deleteDiscussion(post.post.id)}>delete</span>,
+                                  <EditDiscussionModal id={post.post.id} content={post.post.content} reloadDiscussions={this.reloadDiscussions}/>]
                     };
 
                     this.setState((prevState) => ({
@@ -88,7 +90,7 @@ class Discussions extends React.Component {
                           renderItem={reply => (
                               <li>
                               <Comment
-                                actions={[<span onClick={() => this.deleteDiscussion(reply.post.id)}>delete</span>]}
+                              actions={[<span onClick={() => this.deleteDiscussion(reply.post.id)}>delete</span>,<EditDiscussionModal id={reply.post.id} content={reply.post.content} reloadDiscussions={this.reloadDiscussions}/>]}
                                 author={reply.author.email}
                                 avatar={reply.gravatar_url}
                                 content={reply.post.content}
