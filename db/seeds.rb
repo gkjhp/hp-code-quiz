@@ -9,9 +9,9 @@
 
 unless Rails.env.test?
   p = 'fortytwo'
-  u1 = User.create(email: 'host@numberwa.ng', password: p, password_confirmation: p_)
-  u2 = User.create(email: 'contestant1@numberwa.ng', password: p, password_confirmation: p_)
-  u3 = User.create(email: 'contestant2@numberwa.ng', password: p, password_confirmation: p_)
+  u1 = User.create(email: 'host@numberwa.ng', password: p, password_confirmation: p)
+  u2 = User.create(email: 'contestant1@numberwa.ng', password: p, password_confirmation: p)
+  u3 = User.create(email: 'contestant2@numberwa.ng', password: p, password_confirmation: p)
 
   p1 = Post.create(user: u2, content: '3?')
   Post.create(user: u1, content: 'Bad luck.', parent: p1)
