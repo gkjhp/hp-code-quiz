@@ -31,7 +31,7 @@ class Discussions extends React.Component {
                         content: post.post.content,
                         datetime: post.post.updated_at,
                         replies: post.replies,
-                        actions: [<span>reply</span>]
+                        actions: [<span onClick={() => this.deleteDiscussion(post.post.id)}>delete</span>]
                     };
 
                     this.setState((prevState) => ({
@@ -52,6 +52,9 @@ class Discussions extends React.Component {
 
         fetch(url, {
             method: "delete",
+            headers: {
+                'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+            }
         })
             .then((data) => {
                 if (data.ok) {
@@ -85,7 +88,7 @@ class Discussions extends React.Component {
                           renderItem={reply => (
                               <li>
                               <Comment
-                                actions={item.actions}
+                                actions={[<span onClick={() => this.deleteDiscussion(reply.post.id)}>delete</span>]}
                                 author={reply.author.email}
                                 avatar={reply.gravatar_url}
                                 content={reply.post.content}

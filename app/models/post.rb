@@ -5,6 +5,11 @@ class Post < ApplicationRecord
 
   scope :threads, -> { where(parent_id: nil) }
 
+  def content
+    return super unless archived_at
+    'This post has been archived.'
+  end
+
   def archive!
     update(archived_at: Time.current)
   end
