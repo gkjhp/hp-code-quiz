@@ -1,6 +1,6 @@
-import { List, Comment, message, Popconfirm } from "antd";
+import { List, Comment, message } from "antd";
 import React from "react";
-// import AddBeerModal from "./AddBeerModal";
+import AddDiscussionModal from "./AddDiscussionModal";
 
 class Discussions extends React.Component {
 
@@ -98,9 +98,13 @@ class Discussions extends React.Component {
                           )}
                         />
                       </Comment>
+
+                    <AddDiscussionModal reloadDiscussions={this.reloadDiscussions} parentId={item.id}/>
                     </li>
                 )}
               />
+
+              <AddDiscussionModal reloadDiscussions={this.reloadDiscussions}/>
             </>
         );
     }
