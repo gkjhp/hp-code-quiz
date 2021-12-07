@@ -6,6 +6,7 @@
 2. `bundle` it
 2. `yarn install` 
 2. `bin/webpack-dev-server`
+3. `bin/rails db:migrate && bin/rails db:seed`
 3. `bin/rails s` and browse to [localhost:3000](http://localhost:3000)
 
 ## Caveats
