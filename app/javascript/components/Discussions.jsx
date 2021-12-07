@@ -30,7 +30,7 @@ class Discussions extends React.Component {
                         author: post.author.email,
                         avatar: post.gravatar_url,
                         content: post.post.content,
-                        datetime: post.post.updated_at,
+                        datetime: post.post.updated_at == post.post.created_at ? post.post.created_at : 'edited ' + post.post.updated_at,
                         replies: post.replies,
                         actions: [<span onClick={() => this.deleteDiscussion(post.post.id)}>delete</span>,
                                   <EditDiscussionModal id={post.post.id} content={post.post.content} reloadDiscussions={this.reloadDiscussions}/>]
@@ -94,7 +94,7 @@ class Discussions extends React.Component {
                                 author={reply.author.email}
                                 avatar={reply.gravatar_url}
                                 content={reply.post.content}
-                                datetime={reply.post.updated_at}
+                                datetime={reply.post.updated_at == reply.post.created_at ? reply.post.created_at : 'edited ' + reply.post.updated_at}
                               />
                               </li>
                           )}
