@@ -1,6 +1,8 @@
 import { Button, Form, Input, Modal } from "antd";
 import React from "react";
 
+const { TextArea } = Input;
+
 class AddDiscussionModal extends React.Component {
     formRef = React.createRef();
     state = {
@@ -47,7 +49,7 @@ class AddDiscussionModal extends React.Component {
         return (
             <>
                 <Button type="primary" onClick={this.showModal}>
-                    Create New +
+                  {this.props.buttonText} +
                 </Button>
 
                 <Modal
@@ -64,7 +66,7 @@ class AddDiscussionModal extends React.Component {
                                 { required: true, message: "Have an opinion" },
                             ]}
                         >
-                            <Input placeholder="Your thoughts" />
+                            <TextArea rows={4} />
                         </Form.Item>
 
                         <Form.Item>

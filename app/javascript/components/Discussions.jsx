@@ -99,12 +99,12 @@ class Discussions extends React.Component {
                         />
                       </Comment>
 
-                    <AddDiscussionModal reloadDiscussions={this.reloadDiscussions} parentId={item.id}/>
+                    <AddDiscussionModal reloadDiscussions={this.reloadDiscussions} buttonText="Reply" parentId={item.id}/>
                     </li>
                 )}
               />
 
-              <AddDiscussionModal reloadDiscussions={this.reloadDiscussions}/>
+              <AddDiscussionModal reloadDiscussions={this.reloadDiscussions} buttonText="New Thread"/>
             </>
         );
     }
